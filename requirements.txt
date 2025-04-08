@@ -1,5 +1,14 @@
 flask
 openai
-tensorflow
-hgtk
-numpy
+hgtk==0.1.3
+matplotlib==3.2.2
+numpy==1.18.5
+pandas==1.0.5
+sklearn==0.0
+tensorflow==2.3.1
+transformers==4.28.1
+
+torch==1.9.1+cpu
+torchvision==0.10.1+cpu
+torchaudio==0.9.1
+-f https://download.pytorch.org/whl/torch_stable.html

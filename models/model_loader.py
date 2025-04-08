@@ -1,7 +1,7 @@
 # 머신러닝 모델
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
-from badword import load_badword_model, preprocessing
+from models.badword_check.BadWord import load_badword_model, preprocessing
 
 model = load_badword_model()
 
