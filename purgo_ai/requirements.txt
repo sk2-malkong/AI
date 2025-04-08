@@ -1,0 +1,5 @@
+# 의존성
+
+flask
+openai
+python-dotenv
