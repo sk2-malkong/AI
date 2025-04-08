@@ -14,6 +14,8 @@ model들은 임시로 넣은 모델이라서 변경될 수 있음
    ↓
    결과 받아서 처리 (차단/숨김/경고 등)
 
+python 버전: 3.7
+
 ```js(서버 실행방법)
 
    pip install -r requirements.txt     
