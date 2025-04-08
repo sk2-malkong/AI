@@ -1,5 +1,6 @@
 # AI
 AI_Project
+model들은 임시로 넣은 모델이라서 변경될 수 있음
 
 [프론트: Java ( React )]
 ↓
