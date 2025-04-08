@@ -14,7 +14,9 @@ AI_Project
    결과 받아서 처리 (차단/숨김/경고 등)
 
 ```js(서버 실행방법)
-python app.py
+
+   pip install -r requirements.txt     
+   python app.py
 
 ```
 
