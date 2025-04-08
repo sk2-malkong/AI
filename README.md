@@ -25,16 +25,16 @@ Flask 기반의 웹 서버에서 OpenAI LLM을 활용해
 ---
 
 ## 🛠️ 프로젝트 실행 방법
-python app.py 
+#### python app.py 
 
-### 가상환경 만들기
+### ▶️가상환경 만들기
 #### python -m venv venv
 
-### 가상환경 활성화 
+### ▶️가상환경 활성화 
 #### .\venv\Scripts\activate
 
-### 의존성 저장
+### ▶️의존성 저장
 #### pip freeze > requirements.txt
 
-### EC2설치
+### ▶️EC2설치
 #### pip install -r requirements.txt
