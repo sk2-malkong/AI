@@ -1,10 +1,5 @@
 # 파이썬 가상환경
 ai-env/
 
-# Hugging Face 모델 무시
-models/
-*.bin
-*.safetensors
-
 # api key 무시
 .env
