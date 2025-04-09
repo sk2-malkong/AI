@@ -2,8 +2,10 @@
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 from models.badword_check.BadWord import load_badword_model, preprocessing
+from models.kobert.kobert_predict import predict_abuse_kobert
 
 model = load_badword_model()
+
 
 '''
 def predict(text):

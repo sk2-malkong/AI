@@ -203,7 +203,7 @@ def parse_output(output: str):
         elif "욕설 부분:" in lower_line:
             part = line.split(":", 1)[1].strip()
         elif "욕설 부분의 갯수:" in lower_line:
-            partnum = line.split(":", 1)[1].strip()
+            part_num = line.split(":", 1)[1].strip()
         elif "순화 문장:" in lower_line:
             refined = line.split(":", 1)[1].strip()
         elif "리포트:" in lower_line:
@@ -212,7 +212,7 @@ def parse_output(output: str):
     return {
         "gpt_abusive": abusive,
         "abusive_part": part,
-        "part_num": partnum,
+        "part_num": part_num,
         "refined": refined,
         "report": report
     }
@@ -286,8 +286,8 @@ def parse_output(output: str):
             abusive = line.replace("욕설 여부:", "").strip()
         elif line.startswith("욕설 부분:"):
             part = line.replace("욕설 부분:", "").strip()
-        elif line.startswith("욕설 부분의 갯수:"):
-            partnum = line.replace("욕설 부분의 갯수:", "").strip()
+        elif line.startswith("욕설 여부2:"):
+            partnum = line.replace("욕설 여부2:", "").strip()
         elif line.startswith("순화 문장:"):
             refined = line.replace("순화 문장:", "").strip()
         elif line.startswith("리포트:"):
@@ -303,16 +303,19 @@ def parse_output(output: str):
 
 def refine_abusive_text(text):
     prompt = f"""
-문장에서 욕설 여부를 판단하고, 욕설이면 해당 부분을 순화해줘.
+응답은 아래 규칙을 다른다.
+1. 문장에서 욕설 여부를 판단하고, 욕설이면 해당 부분을 순화해줘.
+2. 욕설여부를 제외하고는 모두 한국어로 작성해줘.
+3. 괄호안의 설명을 기준으로 응답을 작성한다.
 
 문장: "{text}"
 
 다음 형식으로 응답해줘:
 욕설 여부: true/false
 욕설 부분: (있으면 명시, 없으면 '해당 없음')
-욕설 부분의 갯수: (욕설 여부가 true이면 1, False이면 0)
-순화 문장: (욕설이면 순화된 대체문장을 생성하고, 아니면 원문을 그대로 적어줘.)
-리포트: (욕설 횟수 타운팅 및 기록, 해당 욕설에 대한 원문과 의미, 욕설의 대체어를 모두 정리해서 리포트를 작성)
+욕설 여부2: (욕설 여부가 true이면 1, False이면 0을 출력한다.)
+순화 문장: (욕설이면 한국어로 이루어진 순화된 대체문장을 생성하고, 욕설이 아니면 원문을 그대로 적어줘.)
+리포트: (욕설로 판단한 이유를 한국어로 정리하는 글을 작성)
 """
 
     payload = {
@@ -322,7 +325,7 @@ def refine_abusive_text(text):
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.7,
-        "max_tokens": 512
+        "max_tokens": 1024
     }
 
     response = requests.post(API_URL, headers=headers, json=payload)
