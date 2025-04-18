@@ -1,41 +1,82 @@
-# 💬 AI 욕설 탐지 프로젝트_Purgo 
+ # 💬 Purgo - AI 욕설 탐지 및 정화 시스템
 
-### 👥 팀원
-- 이현영
-- 백욱진  
-- 김태기  
-- 김소현  
-- 표상혁
-
-### 🌿 브랜치
-- **finish**
+Flask 기반 웹 서버에서 **KoBERT + KoGPT + FastText**를 활용하여  
+댓글/채팅 등 텍스트 내 **욕설을 탐지하고 정제하는 AI 서비스**입니다.
 
 ---
 
-## 📌 프로젝트 개요
-Flask 기반의 웹 서버에서 OpenAI LLM을 활용해  
-**댓글/채팅의 욕설 탐지 및 정화 기능**을 수행하는 AI 서비스입니다.
+## 👥 팀원
+| 이름 | 
+| 이현영 | 
+| 백욱진 | 
+| 김태기 | 
+| 김소현 | 
+| 표상혁 | 
+
+---
+
+## 🌿 주요 브랜치
+- `finish`: 최종 완성 브랜치
+
+---
+
+## 🛠 사용 기술 및 라이브러리
 
 ### 딥러닝 프레임워크
-import torch
-### Kobert를 불러오기 위한 라이브러리
-from transformers import BertTokenizer, BertModel
-### 신경망을 만들기 위한 모듈 
-import torch.nn as nn
-### CSV 읽기 쓰기
-import pandas as pd 
-### API 요청 
-import requests 
-### 바 차트 시각화 
-import matplotlib.pyplot as plt
-### HTML 템플릿  
-from jinja2 import Template
-### PDF 변환
-import pdfkit
-### 경로 처리 및 파일 열기  
-import os  
+- PyTorch
+- transformers
+- KoBERT
+- KoGPT
 
-### Kobert 필요 라이브리러
+### 서버 및 시각화
+- Flask
+- jinja2
+- matplotlib
+- pdfkit
+
+### 데이터 처리
+- pandas
+- scikit-learn
+- sentencepiece
+- requests
+- os
+
+---
+
+## 🧠 욕설 탐지 파이프라인
+
+```
+1단계 FastText → 2단계 KoBERT → 3단계 KoGPT
+```
+
+- **FastText**: 단어 기반 필터링
+- **KoBERT**: 문장/문맥 기반 욕설 감지
+- **KoGPT**: 감지된 욕설을 의미 기반으로 정중하게 변환
+
+---
+
+## 📁 프로젝트 디렉터리 구조
+
+```
+purgo_kobert/
+├── app/
+│   ├── fasttext_filter/
+│   │   └── fasttext_cuss_train_full.txt       ← FastText 단어 사전
+│   └── test_api_from_csv_FINAL_FIXED.py       ← 자동화 테스트 실행
+├── data/
+│   ├── sample_data0.csv                       ← 학습 데이터
+│   └── sample_data1.csv
+├── model/
+│   └── kobert_cuss_epoch(32)_batch_size=32.pth ← KoBERT 학습 모델
+├── train.py                                    ← KoBERT 학습 스크립트
+├── run.py                                      ← Flask 서버 실행
+├── test_input.csv                              ← 테스트용 입력
+```
+
+---
+
+## ⚙️ 설치 명령어
+### 필요 라이브러리 
 pip install torch torchvision torchaudio
 pip install transformers
 pip install transformers gluonnlp sentencepiece
@@ -49,52 +90,76 @@ pip install sentencepiece protobuf
 pip install pandas 
 pip install torch 
 pip install scikit-learn
-
----
-
-## 학습 파일
-### C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\model\kobert_cuss_epoch(32)_batch_size=32.pth
-
-## 학습 데이터 셋 
-### C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\data\sample_data0.csv
-### C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\data\sample_data1.csv
-
-## fasttext 데이터 단어 셋
-### C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\app\fasttext_filter\fasttext_cuss_train_full.txt
-
-## 자동화 테스트 데이터 셋 
-### C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\app\test_input.csv
-
----
-
-### KoGPT 필요 라이브러리 - 그나마 괜찮
 pip install transformers torch sentencepiece
-
-### nlpai-lab/korean-paraphrase-t5-small 필요 라이브러리 - 사용 불가
 pip install transformers sentencepiece
-
-### paust/pko-t5-base - 답변 그대로 출력 성능 아쉽.
-
-### beomi/KoParrot - 사용 불가
-
-### digit82/kobart-summarization - 성능 별로
-
-### 성능 테스트 
 pip install jinja2 matplotlib pandas
 pip install pandas requests matplotlib jinja2
+pip install fasttext
 
 
 ### 1단계 fasttext
-pip install fasttext
-
 ### 2단계 Kobert
-
 ### 3단계 KoGPT
 
-### 실행 방법 - 서버 실행 후 새 터미널에서 진행 
-학습 실행 방법 PS C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert> python train.py 
-서버 실행 방법 PS C:\Users\r2com\Desktop\AI_Kobert_KoGPT> python run.py
-테스트 실행 방법 C:\Users\r2com\Desktop\AI_Kobert_KoGPT\purgo_kobert\app\test_api_from_csv_FINAL_FIXED.py
 
+### KoBERT 관련
+```bash
+pip install torch torchvision torchaudio
+pip install transformers==4.10.0
+pip install gluonnlp==0.10.0
+pip install sentencepiece pandas tqdm kobert-tokenizer scikit-learn
+```
 
- 
+### KoGPT 관련
+```bash
+pip install transformers torch sentencepiece
+```
+
+### FastText 관련
+```bash
+pip install fasttext
+```
+
+### 보고서 및 시각화
+```bash
+pip install jinja2 matplotlib pandas pdfkit
+```
+
+---
+
+## 🚀 실행 방법
+
+### 1. KoBERT 모델 학습
+```bash
+python train.py
+```
+
+### 2. Flask 서버 실행
+```bash
+python run.py
+```
+
+### 3. 자동화 테스트 실행
+```bash
+python app/test_api_from_csv_FINAL_FIXED.py
+```
+
+> ⚠️ `run.py`로 서버를 먼저 실행한 후, 새 터미널에서 테스트를 진행하세요.
+
+---
+
+## 📌 모델 성능 참고 메모
+
+| 모델 이름 | 사용 가능 여부 | 메모 |
+|-----------|----------------|------|
+| nlpai-lab/korean-paraphrase-t5-small | ❌ | 사용 불가 |
+| paust/pko-t5-base | ⭕ | 성능 아쉬움 |
+| beomi/KoParrot | ❌ | 사용 불가 |
+| digit82/kobart-summarization | ⭕ | 성능 미흡 |
+| **KoGPT** (사용 중) | ⭕ | 성능 양호 |
+
+---
+
+## 📞 문의
+이슈나 버그는 GitHub Issues 또는 Pull Request를 통해 알려주세요. 감사합니다! 🙇
+
