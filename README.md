@@ -96,7 +96,7 @@ pip install transformers sentencepiece
 pip install jinja2 matplotlib pandas
 pip install pandas requests matplotlib jinja2
 pip install fasttext
-```bash
+```
 
 ### 1단계 fasttext
 ### 2단계 Kobert
