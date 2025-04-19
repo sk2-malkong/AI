@@ -77,6 +77,7 @@ purgo_kobert/
 
 ## ⚙️ 설치 명령어
 ### 필요 라이브러리 
+```bash
 pip install torch torchvision torchaudio
 pip install transformers
 pip install transformers gluonnlp sentencepiece
@@ -95,7 +96,7 @@ pip install transformers sentencepiece
 pip install jinja2 matplotlib pandas
 pip install pandas requests matplotlib jinja2
 pip install fasttext
-
+```bash
 
 ### 1단계 fasttext
 ### 2단계 Kobert
